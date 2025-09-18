@@ -1,0 +1,38 @@
+[
+    {
+        "id": "acros_bw",
+        "name": "Acros Black & White",
+        "description": "Deep blacks, smooth tones",
+        "prompt": "Transform this image using Fujifilm Acros 100 black and white film simulation. Apply the characteristic ultra-fine grain structure with exceptional sharpness and resolution. Create deep, rich blacks with smooth tonal gradation from shadows to highlights. Enhance contrast while maintaining detail in both shadows and highlights. Apply the distinctive Acros highlight roll-off that prevents blown highlights. Add subtle silver halide grain texture. Increase mid-tone contrast for better separation. Apply the classic monochrome aesthetic with enhanced clarity and three-dimensional depth. Ensure smooth skin tones if portraits are present. Maintain the film's signature smooth gradation and excellent gray-scale reproduction.",
+        "image": "seoul_black_and_white.webp",
+        "category": "monochrome",
+        "beforeAfter": {
+            "before": "/before_and_after/image_1_before.jpg",
+            "after": "/before_and_after/image_1_after.jpg"
+        }
+    },
+    {
+        "id": "classic_chrome",
+        "name": "Classic Chrome",
+        "description": "Documentary style, muted tones",
+        "prompt": "Apply Fujifilm Classic Chrome film simulation to create an authentic documentary photography aesthetic. Reduce overall saturation by 15-20% while maintaining color accuracy. Increase contrast in the mid-tones for better subject separation. Apply the characteristic color grading: shift blues towards cyan, make reds slightly more orange, and render greens with less saturation. Create the distinctive 'Kodak Portra-like' color palette with warmer skin tones. Enhance shadow detail while maintaining highlight retention. Apply subtle color shifts that make the image feel more cinematic and less digital. Increase local contrast for better texture definition. Add the Classic Chrome signature look of slightly cooler highlights and warmer shadows. Ensure the overall mood is serious and professional, perfect for street photography and photojournalism.",
+        "image": "classic_chrome.webp",
+        "category": "color",
+        "beforeAfter": {
+            "before": "/before_and_after/image_2_before.jpg",
+            "after": "/before_and_after/image_2_before.jpg"
+        }
+    },
+    {
+        "id": "classic_negative",
+        "name": "Classic Negative",
+        "description": "Nostalgic colors, film warmth",
+        "prompt": "Transform this image with Fujifilm Classic Negative film simulation to recreate the beloved aesthetic of 1990s-2000s color negative film. Apply rich, saturated colors with enhanced emotional impact. Implement the characteristic color shifts: render greens with a distinctive silvery-olive tone, enhance magenta-red color separation, and create warmer, more golden skin tones. Increase overall saturation by 10-15% while maintaining natural color relationships. Apply the signature highlight roll-off that prevents harsh clipping. Create deeper, more contrasty shadows with retained detail. Add subtle color crossover in the highlights for that film negative look. Enhance the nostalgic, family photo album aesthetic with slightly warmer color temperature. Apply gentle S-curve contrast for more dynamic range. Ensure reds appear more orange-red and blues shift slightly towards purple. Create the emotional, memory-evoking color palette that made this simulation popular for personal photography.",
+        "image": "classic_negative.webp",
+        "category": "color",
+        "beforeAfter": {
+            "before": "/before_and_after/image_1_before.jpg",
+            "after": "/before_and_after/image_1_after.jpg"
+        }
+    }
+]

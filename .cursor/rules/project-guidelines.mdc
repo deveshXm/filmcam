@@ -1,0 +1,445 @@
+---
+alwaysApply: true
+description: "AI Photo Editor project guidelines, structure, and coding standards"
+---
+
+# AI Photo Editor Project Guidelines
+
+## 🎨 Project Overview
+
+This is an **AI-powered photo editor** built with React + Express + TypeScript that applies Fujifilm film simulation effects to uploaded images using Google's Gemini 2.5 Flash (Nano Banana) AI model.
+
+### ✨ Key Features
+- **Google OAuth Authentication**: Secure server-side authentication required
+- **Usage Tracking**: Free tier (5 images) and Premium tier (100 images)
+- **Modal-based Workflow**: Clean photo transformation in dedicated modal
+- **AI Film Effects**: 3 Fujifilm film simulations with research-based detailed prompts
+- **Real-time Usage Updates**: Live usage counter in header
+- **Image Collage Showcase**: Beautiful scattered layout showcasing AI capabilities
+
+## 🏗️ Project Structure
+
+```
+/
+├── src/                    # React frontend (ROOT - NOT in frontend/ folder)
+│   ├── components/         # React components (one per file)
+│   │   ├── SimpleUpload.tsx         # Single button upload component
+│   │   ├── ImageCollage.tsx         # Scattered image showcase layout
+│   │   ├── PhotoTransformModal.tsx  # Modal-based photo transformation
+│   │   ├── EffectSelector.tsx       # Film effect selection UI with previews
+│   │   ├── ProcessedImage.tsx       # Display results with download
+│   │   ├── AuthButton.tsx           # Google OAuth sign-in/out button
+│   │   ├── UsageIndicator.tsx       # Minimal usage counter for header
+│   │   └── LoadingSpinner.tsx       # Processing feedback
+│   ├── contexts/
+│   │   └── AuthContext.tsx          # Authentication state management
+│   ├── pages/
+│   │   └── PhotoEditorPage.tsx      # Main landing page with collage
+│   ├── services/
+│   │   └── imageService.ts          # API calls with JWT authentication
+│   ├── App.tsx            # App with AuthProvider wrapper
+│   └── main.tsx           # Entry point
+├── server/                # Express backend
+│   ├── src/
+│   │   ├── controllers/
+│   │   │   ├── imageController.ts   # Image processing with auth & usage tracking
+│   │   │   └── authController.ts    # Google OAuth server-side flow
+│   │   ├── routes/
+│   │   │   ├── imageRoutes.ts       # Protected image API endpoints
+│   │   │   └── authRoutes.ts        # OAuth initiation & callback routes
+│   │   ├── services/
+│   │   │   ├── geminiService.ts     # Gemini AI integration
+│   │   │   └── userService.ts       # User CRUD operations
+│   │   ├── models/
+│   │   │   └── User.ts              # MongoDB user schema
+│   │   ├── middleware/
+│   │   │   └── authMiddleware.ts    # JWT token verification
+│   │   ├── app.ts         # Express app with MongoDB & auth routes
+│   │   └── server.ts      # Server entry point
+│   └── package.json       # Backend dependencies
+├── public/
+│   ├── templates.json     # Effect templates with detailed AI prompts
+│   ├── images/            # Effect preview images (seoul_black_and_white.webp, etc.)
+│   └── landing/           # Showcase images for collage display
+├── types/
+│   └── index.ts           # ALL TypeScript types/interfaces (single file)
+└── package.json           # Frontend dependencies
+```
+
+## 📚 Technology Stack
+
+### Frontend
+- **React 18** with TypeScript
+- **Vite** (build tool, NOT Create React App)
+- **Tailwind CSS v4** with `@tailwindcss/vite` plugin
+- **Axios** for API calls with JWT authentication
+- **Google OAuth** - Server-side authentication flow
+- **JWT Decode** for token handling and validation
+
+### Backend  
+- **Express.js** with TypeScript
+- **MongoDB** with Mongoose for user data
+- **Google OAuth Library** for server-side authentication
+- **JWT** for session management (30-day expiry)
+- **Google Gemini 2.5 Flash** (`@google/genai`) for AI image processing
+- **CORS** for cross-origin requests with credentials
+- **dotenv** for environment variables
+
+### AI Integration
+- **Gemini 2.5 Flash Image Preview** (Nano Banana model)
+- **Base64 Image Processing** - Input and output via base64 encoding
+- **Film Simulation Effects** - Fujifilm-inspired AI prompts
+- **Real-time Processing** - HTTP-based with loading states
+
+### DevOps
+- **ts-node** and **nodemon** for development
+- **TypeScript** compiler for production builds
+
+## 🎯 Core Coding Principles
+
+### ❌ NEVER CREATE UNNECESSARY:
+- **Folders**: Only create folders when absolutely needed
+- **Files**: One function per file, avoid utility files with multiple functions
+- **Libraries**: Use minimal dependencies, avoid bloated packages
+- **Components**: Keep components simple and focused
+- **Abstractions**: Don't over-engineer, keep it simple
+
+### ✅ ALWAYS FOLLOW:
+- **Single Function Principle**: One function per file
+- **Single Responsibility**: Each component/function has one clear purpose
+- **Minimal Structure**: Flat hierarchy when possible
+- **Clear Naming**: Descriptive file and function names
+
+## 📁 File Organization Rules
+
+### Types Management
+- **ALL types go in [types/index.ts](mdc:types/index.ts)**
+- No separate type files per feature
+- Export all interfaces from single location
+
+### Component Structure
+- One component per file in [src/components/](mdc:src/components/)
+- Export as named export: `export const MyComponent = (): JSX.Element => {}`
+- No index.js files for re-exports
+
+### Key Components
+- **SimpleUpload.tsx**: Single button upload with auth guards
+- **ImageCollage.tsx**: Scattered image showcase wrapping around center button
+- **PhotoTransformModal.tsx**: Full-screen modal for photo transformation workflow
+- **EffectSelector.tsx**: Grid-based effect selection with visual previews
+- **AuthButton.tsx**: Google OAuth sign-in/out with responsive design
+- **UsageIndicator.tsx**: Minimal header usage counter with real-time updates
+- **ProcessedImage.tsx**: Clean result display with download functionality
+- **PhotoEditorPage.tsx**: Landing page with collage, auth, and modal integration
+
+### Backend Structure
+- Controllers: Auth and image processing in [server/src/controllers/](mdc:server/src/controllers/)
+- Services: User operations and AI integration in [server/src/services/](mdc:server/src/services/)
+- Routes: Auth and image routes in [server/src/routes/](mdc:server/src/routes/)
+- Models: Simple User schema in [server/src/models/](mdc:server/src/models/)
+- Middleware: JWT authentication in [server/src/middleware/](mdc:server/src/middleware/)
+- **MongoDB Integration**: User authentication and usage tracking
+
+## 🔧 Environment Configuration
+
+### Frontend Environment
+- Use [env.example](mdc:env.example) as template
+- Variables prefixed with `VITE_`
+- API URL: `VITE_API_URL=http://localhost:3001/api`
+
+### Backend Environment  
+- Use [server/env.example](mdc:server/env.example) as template
+- **Critical Required Variables**:
+  - `MONGODB_URI` - MongoDB connection string
+  - `GOOGLE_CLIENT_ID` - Google OAuth client ID
+  - `GOOGLE_CLIENT_SECRET` - Google OAuth client secret
+  - `GOOGLE_REDIRECT_URI` - OAuth callback URL (http://localhost:3001/api/auth/google/callback)
+  - `JWT_SECRET` - Secure random string for JWT signing
+  - `GEMINI_API_KEY` - Google Gemini API key
+- Optional variables:
+  - `PORT` - Server port (default: 3001)
+  - `CLIENT_URL` - Frontend URL (default: http://localhost:5173)
+  - `NODE_ENV` - Environment (development/production)
+  - `DODO_API_KEY` - DodoPayments API key (for future premium upgrades)
+
+## 🤖 AI Image Processing Flow
+
+### Gemini Integration
+- **Model**: `gemini-2.5-flash-image-preview` (Nano Banana)
+- **Package**: `@google/genai` (official Google SDK)
+- **Processing**: Text + Image → Image (film simulation effects)
+- **Format**: Base64 input/output for seamless web integration
+
+### Film Effects Available
+1. **Acros Black & White** (`acros_bw`) - Classic monochrome with film grain
+2. **Classic Chrome** (`classic_chrome`) - Documentary Kodak-like aesthetic  
+3. **Classic Negative** (`classic_negative`) - Nostalgic 90s/2000s photo album feel
+
+### Processing Workflow
+1. User must sign in with Google OAuth (server-side flow)
+2. User clicks "Choose Your Photo" button in image collage
+3. Photo Transform Modal opens with image preview
+4. User selects film effect from visual grid
+5. Backend verifies JWT token and checks usage limits
+6. AI processes image with detailed Fujifilm simulation prompts
+7. Usage count incremented, user data refreshed in real-time
+8. Processed image displayed with download options
+
+## 🎨 Modern UI/UX Design System (2024-2025)
+
+### Tailwind CSS v4 Configuration
+- **Vite Plugin**: Use `@tailwindcss/vite` in [vite.config.ts](mdc:vite.config.ts)
+- **CSS Import**: Single `@import "tailwindcss";` in [src/index.css](mdc:src/index.css)
+- **No PostCSS Config**: Not needed with Tailwind v4 + Vite plugin
+- **No Config Files**: Tailwind v4 uses CSS-based configuration
+
+### Typography System
+- **Primary Font**: Geist font family (Google Fonts)
+- **Font Weights**: 300 (light), 400 (normal), 500 (medium), 600 (semibold)
+- **Font Features**: `font-feature-settings: 'cv11', 'ss01'`
+- **Optical Sizing**: `font-variation-settings: 'opsz' 32`
+- **Smoothing**: `-webkit-font-smoothing: antialiased`
+
+### Color Palette - Modern Neutral Stone
+- **Stone Scale**: stone-50 (#fafaf9) to stone-900 (#1c1917)
+- **Primary Background**: stone-50 to stone-200 gradient
+- **Text Colors**: stone-900 (primary), stone-600 (secondary), stone-500 (tertiary)
+- **Accent Colors**: Indigo-600 (#6366f1), Purple-600 (#8b5cf6)
+- **Success**: Emerald-600 (#059669)
+- **Warning**: Amber-600 (#d97706)
+
+### Component Design Principles
+- **Glass-morphism**: `backdrop-filter: blur(10px)` with subtle transparency
+- **Shadow System**: 
+  - `shadow-soft`: Subtle everyday shadows
+  - `shadow-medium`: Elevated component shadows
+- **Border Radius**: Generous rounded corners (rounded-2xl, rounded-3xl)
+- **Spacing**: Liberal use of padding and margins for breathing room
+- **Hover States**: Subtle scale transforms and color transitions
+
+### Layout Structure
+- **Navigation**: Clean header with enhanced logo and brand
+- **Hero Section**: Always visible with gradient text treatment
+- **Main Content**: Centered, max-width containers
+- **Templates**: Full-width horizontal scroll section
+- **Cards**: White backgrounds with subtle shadows and borders
+
+### Interactive Elements
+- **Buttons**: 
+  - Primary: Stone-900 background with white text
+  - Secondary: Stone-200 background with stone-900 text
+  - Hover: `-translate-y-0.5` with shadow changes
+  - Cursors: Always include `cursor-pointer` on interactive elements
+- **Upload Areas**: Large, inviting with dashed borders and hover states
+- **Template Cards**: Card-based layout with hover scaling and selection indicators
+
+### Micro-interactions
+- **Transitions**: `duration-300` for most interactions
+- **Hover Effects**: Scale transforms (scale-105, scale-[1.02])
+- **Loading States**: Consistent spinner design with proper contrast
+- **Selection States**: Ring borders and color changes for selected items
+
+### Responsive Design
+- **Mobile-first**: Start with mobile and scale up
+- **Breakpoints**: sm: (640px), md: (768px), lg: (1024px)
+- **Touch Targets**: Minimum 44px for touch interfaces
+- **Horizontal Scroll**: Touch-friendly template browsing
+
+### Accessibility Standards
+- **Color Contrast**: WCAG AA compliant contrast ratios
+- **Focus States**: Visible focus indicators on all interactive elements
+- **Semantic HTML**: Proper heading hierarchy and landmarks
+- **Alt Text**: Descriptive alternative text for images
+
+## 🚀 Development Workflow
+
+### Running the Application
+```bash
+# Frontend (from root)
+npm run dev
+
+# Backend (from server/)
+cd server && npm run dev
+```
+
+### Building for Production
+```bash
+# Frontend
+npm run build
+
+# Backend  
+cd server && npm run build
+```
+
+## 📦 Package Management
+
+- Use **npm** (not yarn or pnpm)
+- Install latest versions of packages
+- Keep dependencies minimal
+- Separate dev dependencies appropriately
+
+## 🔍 Code Quality Rules
+
+### TypeScript
+- **Strict mode enabled**
+- **No any types** unless absolutely necessary
+- **Proper interface definitions** in [types/index.ts](mdc:types/index.ts)
+- **Return type annotations** on functions
+
+### React
+- **Functional components only**
+- **Custom hooks** for reusable logic in [src/hooks/](mdc:src/hooks/)
+- **Props destructuring** in component parameters
+- **JSX.Element return type** for components
+
+### Express
+- **Async/await** instead of callbacks
+- **Proper error handling** with try/catch for AI API calls
+- **Route organization** by feature in [server/src/routes/](mdc:server/src/routes/)
+- **Lazy Loading**: Services instantiated only when needed (after env vars loaded)
+- **Base64 Handling**: 50MB limit for large image processing
+
+## 🚫 Anti-Patterns to Avoid
+
+- **Don't create** separate folders for constants, helpers, or shared utilities
+- **Don't use** complex state management libraries (Redux, Zustand) - use React built-in state
+- **Don't create** barrel exports (index.js files that re-export everything)
+- **Don't add** unnecessary npm packages
+- **Don't create** deep folder nesting
+- **Don't write** multiple functions in a single file
+- **Don't create** generic utility functions unless absolutely needed
+
+## 📋 Deployment Preparation
+
+- **GitHub Actions** configured in [.github/workflows/ci.yml](mdc:.github/workflows/ci.yml)
+- **Environment variables** properly configured
+- **Build scripts** working for both frontend and backend
+- **Production-ready** but deployment scripts not included yet
+
+## 🚀 API Endpoints
+
+### Authentication API
+- **GET** `/api/auth/google` - Initiate Google OAuth flow
+- **GET** `/api/auth/google/callback` - Handle OAuth callback
+- **GET** `/api/auth/profile` - Get user profile (protected)
+- **POST** `/api/auth/webhook/dodo` - DodoPayments webhook (mocked)
+
+### Image Processing API (Protected)
+- **POST** `/api/images/process` - Process image with selected effect (requires JWT)
+- **GET** `/api/images/effects` - Get available film effects
+- **GET** `/api/images/health` - Health check for AI service
+- **GET** `/api/health` - General server health check
+
+### Request/Response Format
+```typescript
+// Request
+{
+  "image": "data:image/jpeg;base64,/9j/4AAQ...",
+  "effect": "classic_chrome",
+  "metadata": { "format": "image/jpeg" }
+}
+
+// Response  
+{
+  "success": true,
+  "data": {
+    "processedImage": "data:image/jpeg;base64,/9j/4AAQ...",
+    "processingTime": 3.2,
+    "effectApplied": "classic_chrome"
+  }
+}
+```
+
+## ⚠️ Critical Implementation Notes
+
+### Environment Variable Loading
+- **MUST** load `dotenv.config()` in [server/src/server.ts](mdc:server/src/server.ts) BEFORE importing other modules
+- **MUST** use lazy loading for services that require env vars
+- **NEVER** instantiate services at module level
+
+### Gemini API Integration
+- **Model**: `gemini-2.5-flash-image-preview` (correct model name)
+- **Package**: `@google/genai` (NOT `@google/generative-ai`)
+- **API Structure**: Use `ai.models.generateContent()` method
+- **Content Format**: Array with text prompt and inlineData image
+
+### Tailwind CSS v4 Setup
+- **Vite Plugin**: Add `tailwindcss()` to plugins in vite.config.ts
+- **CSS Import**: Use `@import "tailwindcss";` (NOT @tailwind directives)
+- **No Config Files**: Remove postcss.config.js and tailwind.config.js
+
+## 🎯 Project Goals
+
+This application is designed as an **AI-powered photo editor** with:
+- **Secure Authentication**: Google OAuth with server-side validation
+- **Usage-based Tiers**: Free (5 images) and Premium (100 images) tiers
+- **Modal Workflow**: Dedicated transformation experience
+- **Real-time AI Processing**: Gemini-powered film simulations with detailed prompts
+- **Minimal Complexity**: Clean, focused functionality with secure backend
+- **Modern Professional UI**: 2024-2025 design trends with responsive layout
+- **Scalable Architecture**: JWT-based authentication with MongoDB user tracking
+
+### UI/UX Excellence Standards
+- **Premium Feel**: Sophisticated neutral color palette with professional typography
+- **Micro-interactions**: Subtle animations and hover effects throughout
+- **Glass-morphism**: Modern depth and layering with backdrop blur effects
+- **Accessibility First**: WCAG AA compliance with proper contrast and focus states
+- **Mobile Optimized**: Touch-friendly interactions and responsive design
+- **Performance**: Smooth 60fps animations with efficient CSS transforms
+
+### Brand Identity
+- **Enhanced Logo**: Professional camera icon with gradient background and subtle glow
+- **Typography**: Geist font family with proper optical sizing and font features
+- **Color System**: Stone-based neutral palette with strategic accent colors
+- **Visual Hierarchy**: Clear content structure with generous whitespace
+
+## 🔐 Authentication & Security
+
+### Google OAuth Implementation
+- **Server-side OAuth flow** for maximum security
+- **Authorization code exchange** with CLIENT_SECRET
+- **JWT session management** with 30-day expiry
+- **Protected API endpoints** with middleware validation
+- **Real-time user data refresh** after image processing
+
+### User Schema (MongoDB)
+```typescript
+interface User {
+  googleId: string;        // Google OAuth ID
+  email: string;          // User email
+  name: string;           // Display name
+  tier: 'free' | 'premium'; // Subscription tier
+  imageCount: number;     // Images processed count
+  createdAt: Date;        // Account creation
+}
+```
+
+### Usage Limits & Tiers
+- **Free Tier**: 5 images maximum (one-time limit)
+- **Premium Tier**: 100 images (resets on upgrade)
+- **Real-time Tracking**: Usage counter updates immediately
+- **Upgrade Flow**: DodoPayments integration (mocked for now)
+
+## 🎭 UI/UX Patterns
+
+### Modal-based Workflow
+- **Landing Page**: Image collage with centered upload button
+- **Photo Transform Modal**: Dedicated transformation workspace
+- **Two-column Layout**: Image preview left, effects right
+- **Fixed Bottom Actions**: Apply button always visible
+- **Result Overlay**: Full-screen result display with actions
+
+### Image Collage Design
+- **Scattered Layout**: Organic positioning around center button
+- **Percentage-based Positioning**: Prevents overlapping on all screen sizes
+- **Responsive Sizing**: Mobile (w-12-18) to Desktop (w-18-24)
+- **Hover Interactions**: Subtle scale transforms (scale-105)
+- **Natural Integration**: Button positioned within image arrangement
+
+### Authentication UX
+- **Header Integration**: Minimal usage indicator and auth button
+- **Immediate Redirects**: Any upload attempt without auth → OAuth flow
+- **Real-time Updates**: Usage count refreshes after processing
+- **Responsive Design**: Compact mobile, full desktop experience
+
+Remember: **Secure authentication, modal workflow, scattered image showcase, real-time usage tracking.**
