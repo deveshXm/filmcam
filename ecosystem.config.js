@@ -9,17 +9,17 @@ export default {
         NODE_ENV: "production"
       }
     },
-    {
-      name: "backend",
-      script: "server/dist/server.js",
-      env: {
-        PORT: 3001,
-        NODE_ENV: "production"
-      },
-      watch: false,
-      autorestart: true,
-      max_memory_restart: "1G"
-    }
+    // {
+    //   name: "backend",
+    //   script: "server/dist/server.js",
+    //   env: {
+    //     PORT: 3001,
+    //     NODE_ENV: "production"
+    //   },
+    //   watch: false,
+    //   autorestart: true,
+    //   max_memory_restart: "1G"
+    // }
   ]
 };
   
