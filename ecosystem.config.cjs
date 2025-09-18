@@ -13,8 +13,8 @@ module.exports = {
       },
       {
         name: "backend",
-        script: "server/dist/server.js",
-        cwd: "./",
+        script: "dist/server.js",
+        cwd: "./server",
         interpreter: "node",
         env: {
           PORT: 3001,
