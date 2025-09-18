@@ -1,51 +1,32 @@
 module.exports = {
-  apps: [
-    {
-      name: 'orca-frontend',
-      script: 'npx',
-      args: 'serve -s dist -l 5173',
-      cwd: '/var/www/filmcam',
-      instances: 1,
-      autorestart: true,
-      watch: false,
-      max_memory_restart: '512M',
-      env: {
-        NODE_ENV: 'production',
-        PORT: 5173
+    apps: [
+      {
+        name: `frontend`,
+        script: "npx",
+        args: "vite preview",
+        env: {
+          PORT: 5173,
+          NODE_ENV: 'production',
+        },
       },
-      env_production: {
-        NODE_ENV: 'production',
-        PORT: 5173
-      },
-      error_file: './logs/frontend-error.log',
-      out_file: './logs/frontend-out.log',
-      log_file: './logs/frontend-combined.log',
-      time: true,
-      merge_logs: true,
-      log_date_format: 'YYYY-MM-DD HH:mm:ss Z'
-    },
-    {
-      name: 'orca-backend',
-      script: './server/dist/server.js',
-      cwd: '/var/www/filmcam',
-      instances: 1,
-      autorestart: true,
-      watch: false,
-      max_memory_restart: '1G',
-      env: {
-        NODE_ENV: 'production',
-        PORT: 3001
-      },
-      env_production: {
-        NODE_ENV: 'production',
-        PORT: 3001
-      },
-      error_file: './logs/backend-error.log',
-      out_file: './logs/backend-out.log',
-      log_file: './logs/backend-combined.log',
-      time: true,
-      merge_logs: true,
-      log_date_format: 'YYYY-MM-DD HH:mm:ss Z'
-    }
-  ]
-};
+      {
+        name: `backend`,
+        script: "node",
+        args: "server/dist/server.js",
+        env: {
+          PORT: 3001,
+          NODE_ENV: 'production',
+        },
+        watch: false,
+        autorestart: true,
+        max_memory_restart: '1G',
+        instances: 1,
+        exec_mode: 'cluster',
+        env_production: {
+          PORT: 3001,
+          NODE_ENV: 'production',
+        },
+      }
+    ],
+  };
+  
