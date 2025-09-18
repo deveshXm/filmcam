@@ -1,15 +1,15 @@
 export default {
   apps: [
-    {
-      name: "frontend",
-      script: "npx",
-      args: "serve -s dist -l 5173",
-      cwd: "./",
-      env: {
-        PORT: 5173,
-        NODE_ENV: "production"
-      }
-    },
+    // {
+    //   name: "frontend",
+    //   script: "npx",
+    //   args: "serve -s dist -l 5173",
+    //   cwd: "./",
+    //   env: {
+    //     PORT: 5173,
+    //     NODE_ENV: "production"
+    //   }
+    // },
     {
       name: "backend",
       script: "server/dist/server.js",
